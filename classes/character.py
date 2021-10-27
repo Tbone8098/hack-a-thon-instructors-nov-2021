@@ -11,6 +11,23 @@ class Character:
         self.attack_skills = [AttackSkill('melee')]
         self.items = {}
 
+    def info(self):
+        print(f"""{f' {self.name} ':*^80}""")
+        print(f"race: {self.race.name}")
+        self.race.info()
+        print(f"gold: {self.gold}")
+        print(f"damage_taken: {self.damage_taken}")
+        print(f"attack_skills:...")
+        for skill in self.attack_skills:
+            print("> " + skill.name)
+        print(f"items ... ")
+        if len(self.items) == 0:
+            print("> you have no items")
+        else: 
+            for item in self.items:
+                print(f"> {item.name}")
+        return self
+
     @property
     def base_stats(self):
         return {

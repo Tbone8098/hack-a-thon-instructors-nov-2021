@@ -6,6 +6,12 @@ class Race:
         self.strength = strength
         self.defense = defense
         self.speed = speed
+    
+    def info(self):
+        print(f"health: {self.health}")
+        print(f"strength: {self.strength}")
+        print(f"defense: {self.defense}")
+        print(f"speed: {self.speed}")
 
 def random_num(high_num):
     return random.randint(0, high_num)

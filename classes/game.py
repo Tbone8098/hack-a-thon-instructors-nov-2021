@@ -16,7 +16,7 @@ class Game:
         return self
 
     def do_battle(self):
-        enemy = Character('enemy',10,10,)
+        enemy = Character('enemy',10,10,10,10)
         while enemy.health >= 0 and self.player.health >= 0:
             command, *arguments = input("Choose a command: ").strip().split(' ')
             self.run_command(command,arguments)
@@ -48,3 +48,4 @@ class Game:
 
 game = Game()
 game.create_character()
+game.player.info()
