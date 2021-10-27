@@ -1,10 +1,12 @@
 from character import Character
 from race import all_races
+import random
 
 class Game:
     def __init__(self):
         self.running = False
         self.player = None
+        self.enemy = None
         self.state = 'play'
 
     def create_character(self):
@@ -16,14 +18,20 @@ class Game:
         return self
 
     def do_battle(self):
-        enemy = Character('enemy',10,10,10,10)
-        while enemy.health >= 0 and self.player.health >= 0:
+        self.enemy = Character('enemy',all_races['human'],100)
+        while self.enemy.health >= 0 and self.player.health >= 0:
             command, *arguments = input("Choose a command: ").strip().split(' ')
-            self.run_command(command,arguments)
+            enemy_choice = random.choice(['attack','block'])
+            if self.player.speed >= self.enemy.speed:
+                self.run_command(command,arguments)
+                self.enemy.actions[enemy_choice](self.player)
+            else:
+                self.enemy.actions[enemy_choice](self.player)
+                self.run_command(command,arguments)
         self.state = "shop"
 
-
     def shop_for_items(self):
+        print("Welcome to the shop!")
         while self.state == "shop":
             command, *arguments = input("Choose a command: ").strip().split(' ')
             self.run_command(command,arguments)
@@ -39,11 +47,28 @@ class Game:
 
     def run_command(self, command:str, arguments:list):
         if self.state == "battle":
-            pass
-            #battle commands
+            if command == "attack":
+                self.player.attack(self.enemy)
+            elif command == "block":
+                self.player.block(self.enemy)
+            elif command == "use":
+                item_name = arguments[0]
+                if item_name in self.player.items:
+                    item = self.player.items[item_name]
+                    item.use()
+                    # self.player.items.pop(arguments[0])
+                else:
+                    print("Invalid item!")
+            elif command == "flee":
+                if random.randint(0,1):
+                    self.state == "shop"
+                    print("Successfully escaped! Returning to shop")
+                else:
+                    print("Failed to flee!")
         elif self.state == "shop":
             if command == "leave":
                 self.state = "battle"
+            
             #shop commands
 
 game = Game()

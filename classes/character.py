@@ -43,7 +43,14 @@ class Character:
             'defense' : [],
             'speed' : []
         }
-    
+
+    @property
+    def actions(self):
+        return {
+            "attack" : self.attack,
+            "block" : self.block
+        }
+
     def calculate_stat(self, stat):
         modifiers = self.stat_modifiers.get(stat)
         stat_total = self.base_stats.get(stat)
