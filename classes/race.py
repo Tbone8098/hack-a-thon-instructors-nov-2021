@@ -9,3 +9,5 @@ class Race:
 all_races = {
     'human' : Race('human',100,10,10,10)
 }
+
+

@@ -1,3 +1,5 @@
+from race import Race
+
 class Character:
     def __init__(self, name:str, race:Race, gold:int=0):
         self.name = name
@@ -19,6 +21,13 @@ class Character:
             'strength' : [],
             'defense' : [],
             'speed' : []
+        }
+
+    @property
+    def actions(self):
+        return {
+            "attack" : self.attack,
+            "block" : self.block
         }
 
     def calculate_stat(self, stat):
