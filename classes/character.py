@@ -14,12 +14,15 @@ class Character:
     def info(self):
         print(f"""{f' {self.name} ':*^80}""")
         print(f"race: {self.race.name}")
-        self.race.info()
         print(f"gold: {self.gold}")
         print(f"damage_taken: {self.damage_taken}")
+        for stat, val in self.base_stats.items():
+            print(f"{stat}: {val}")
+            
         print(f"attack_skills:...")
         for skill in self.attack_skills:
             print("> " + skill.name)
+
         print(f"items ... ")
         if len(self.items) == 0:
             print("> you have no items")
@@ -33,7 +36,8 @@ class Character:
         return {
             "strength" : self.race.strength,
             "defense" : self.race.defense,
-            "speed" : self.race.speed
+            "speed" : self.race.speed,
+            "health": self.race.health
         }
     
     @property
@@ -60,11 +64,11 @@ class Character:
 
     @property
     def current_health(self):
-        return self.health - self.damage_taken
+        return self.base_stats['health'] - self.damage_taken
 
     def attack(self, other):
         hit = random.randint(0,20)
-        chance_to_hit = (self.race.strength * other.race.defense) / 100
+        chance_to_hit = (self.race.strength * other.race.defense) / 10
         print(f"hit roll: {hit} || chance to hit: {chance_to_hit}")
 
     def block(self, other):

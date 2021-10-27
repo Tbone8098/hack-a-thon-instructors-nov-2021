@@ -19,10 +19,10 @@ class Game:
 
     def do_battle(self):
         self.enemy = Character('enemy',all_races['human'],100)
-        while self.enemy.health >= 0 and self.player.health >= 0:
+        while self.enemy.current_health >= 0 and self.player.current_health >= 0:
             command, *arguments = input("Choose a command: ").strip().split(' ')
             enemy_choice = random.choice(['attack','block'])
-            if self.player.speed >= self.enemy.speed:
+            if self.player.base_stats['speed'] >= self.enemy.base_stats['speed']:
                 self.run_command(command,arguments)
                 self.enemy.actions[enemy_choice](self.player)
             else:
@@ -70,7 +70,3 @@ class Game:
                 self.state = "battle"
             
             #shop commands
-
-game = Game()
-game.create_character()
-game.player.info()
