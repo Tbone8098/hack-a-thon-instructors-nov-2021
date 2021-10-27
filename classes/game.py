@@ -45,3 +45,6 @@ class Game:
             if command == "leave":
                 self.state = "battle"
             #shop commands
+
+game = Game()
+game.create_character()
